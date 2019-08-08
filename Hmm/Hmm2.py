@@ -1,6 +1,6 @@
 from Hmm.Hmm import Hmm
-from Math import Vector
-from Math import Matrix
+from Math.Vector import Vector
+from Math.Matrix import Matrix
 
 
 class Hmm2(Hmm):
@@ -9,7 +9,7 @@ class Hmm2(Hmm):
         super().__init__(states, observations, emittedSymbols)
 
     def calculatePi(self, observations: list):
-        self.pi = Matrix.Matrix(self.stateCount, self.stateCount)
+        self.pi = Matrix(self.stateCount, self.stateCount)
         for observation in observations:
             first = self.stateIndexes[observation[0]]
             second = self.stateIndexes[observation[1]]
@@ -17,7 +17,7 @@ class Hmm2(Hmm):
         self.pi.columnWiseNormalize()
 
     def calculateTransitionProbabilities(self, observations: list):
-        self.transitionProbabilities = Matrix.Matrix(self.stateCount * self.stateCount, self.stateCount)
+        self.transitionProbabilities = Matrix(self.stateCount * self.stateCount, self.stateCount)
         for current in observations:
             for j in range(len(current) - 1):
                 fromIndex1 = self.stateIndexes[current[j]]
@@ -27,7 +27,7 @@ class Hmm2(Hmm):
         self.transitionProbabilities.columnWiseNormalize()
 
     def logOfColumn(self, column: int) -> Vector:
-        result = Vector.Vector()
+        result = Vector()
         for i in range(self.stateCount):
             result.add(self.safeLog(self.transitionProbabilities.getValue(i * self.stateCount + column // self.stateCount, column % self.stateCount)))
         return result
@@ -35,9 +35,9 @@ class Hmm2(Hmm):
     def viterbi(self, s: list) -> list:
         result = []
         sequenceLength = len(s)
-        gamma = Matrix.Matrix(sequenceLength, self.stateCount * self.stateCount)
-        phi = Matrix.Matrix(sequenceLength, self.stateCount * self.stateCount)
-        qs = Vector.Vector()
+        gamma = Matrix(sequenceLength, self.stateCount * self.stateCount)
+        phi = Matrix(sequenceLength, self.stateCount * self.stateCount)
+        qs = Vector()
         qs.initAllSame(sequenceLength, 0)
         emission1 = s[0]
         emission2 = s[1]

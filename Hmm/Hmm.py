@@ -1,5 +1,5 @@
 from Hmm.HmmState import HmmState
-from DataStructure import CounterHashMap
+from DataStructure.CounterHashMap import CounterHashMap
 import math
 import abc
 from abc import abstractmethod
@@ -34,7 +34,7 @@ class Hmm(abc):
         self.calculateTransitionProbabilities(observations)
 
     def calculateEmissionProbabilities(self, state: object,  observations: list, emittedSymbols: list) -> dict:
-        counts = CounterHashMap.CounterHashMap()
+        counts = CounterHashMap()
         emissionProbabilities = {}
         for i in range(len(observations)):
             for j in range(len(observations[i])):

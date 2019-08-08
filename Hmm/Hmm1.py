@@ -1,6 +1,6 @@
 from Hmm.Hmm import Hmm
-from Math import Vector
-from Math import Matrix
+from Math.Vector import Vector
+from Math.Matrix import Matrix
 
 
 class Hmm1(Hmm):
@@ -9,7 +9,7 @@ class Hmm1(Hmm):
         super().__init__(states, observations, emittedSymbols)
 
     def calculatePi(self, observations: list):
-        self.pi = Vector.Vector()
+        self.pi = Vector()
         self.pi.initAllSame(self.stateCount, 0.0)
         for observation in observations:
             index = self.stateIndexes[observation[0]]
@@ -17,7 +17,7 @@ class Hmm1(Hmm):
         self.pi.l1Normalize()
 
     def calculateTransitionProbabilities(self, observations: list):
-        self.transitionProbabilities = Matrix.Matrix(self.stateCount, self.stateCount)
+        self.transitionProbabilities = Matrix(self.stateCount, self.stateCount)
         for current in observations:
             for j in range(len(current) - 1):
                 fromIndex = self.stateIndexes[current[j]]
@@ -26,7 +26,7 @@ class Hmm1(Hmm):
         self.transitionProbabilities.columnWiseNormalize()
 
     def logOfColumn(self, column: int) -> Vector:
-        result = Vector.Vector()
+        result = Vector()
         for i in range(self.stateCount):
             result.add(self.safeLog(self.transitionProbabilities.getValue(i, column)))
         return result
@@ -34,9 +34,9 @@ class Hmm1(Hmm):
     def viterbi(self, s: list) -> list:
         result = []
         sequenceLength = len(s)
-        gamma = Matrix.Matrix(sequenceLength, self.stateCount)
-        phi = Matrix.Matrix(sequenceLength, self.stateCount)
-        qs = Vector.Vector()
+        gamma = Matrix(sequenceLength, self.stateCount)
+        phi = Matrix(sequenceLength, self.stateCount)
+        qs = Vector()
         qs.initAllSame(sequenceLength, 0)
         emission = s[0]
         for i in range(self.stateCount):
