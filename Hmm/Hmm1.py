@@ -46,7 +46,7 @@ class Hmm1(Hmm):
             emission = s[t]
             for j in range(self.stateCount):
                 tempArray = self.logOfColumn(j)
-                tempArray.add(gamma.getRowVector(t - 1))
+                tempArray.addVector(gamma.getRowVector(t - 1))
                 maxIndex = tempArray.maxIndex()
                 observationLikelihood = self.states[j].getEmitProb(emission)
                 gamma.setValue(t, j, tempArray.getValue(maxIndex) + self.safeLog(observationLikelihood))

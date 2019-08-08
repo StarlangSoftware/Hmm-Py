@@ -14,3 +14,5 @@ if __name__ == '__main__':
                       [3, 1, 2, 2, 3],
                       [1, 2, 3, 2, 1]]
     hmm = Hmm1(states, observations, emittedSymbols)
+    observedStates = hmm.viterbi(observed)
+    print(observedStates)

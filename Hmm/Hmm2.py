@@ -19,7 +19,7 @@ class Hmm2(Hmm):
     def calculateTransitionProbabilities(self, observations: list):
         self.transitionProbabilities = Matrix(self.stateCount * self.stateCount, self.stateCount)
         for current in observations:
-            for j in range(len(current) - 1):
+            for j in range(len(current) - 2):
                 fromIndex1 = self.stateIndexes[current[j]]
                 fromIndex2 = self.stateIndexes[current[j + 1]]
                 toIndex = self.stateIndexes[current[j + 2]]
@@ -50,7 +50,7 @@ class Hmm2(Hmm):
             for j in range(self.stateCount * self.stateCount):
                 current = self.logOfColumn(j)
                 previous = gamma.getRowVector(t - 1).skipVector(self.stateCount, j // self.stateCount)
-                current.add(previous)
+                current.addVector(previous)
                 maxIndex = current.maxIndex()
                 observationLikelihood = self.states[j % self.stateCount].getEmitProb(emission)
                 gamma.setValue(t, j, current.getValue(maxIndex) + self.safeLog(observationLikelihood))
