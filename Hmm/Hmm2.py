@@ -1,11 +1,11 @@
-import Hmm
+from Hmm.Hmm import Hmm
 from Math import Vector
 from Math import Matrix
 
 
 class Hmm2(Hmm):
 
-    def __init__(self, states: dict, observations: list, emittedSymbols: list):
+    def __init__(self, states: set, observations: list, emittedSymbols: list):
         super().__init__(states, observations, emittedSymbols)
 
     def calculatePi(self, observations: list):

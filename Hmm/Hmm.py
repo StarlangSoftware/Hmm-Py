@@ -1,20 +1,25 @@
-from Hmm import HmmState
+from Hmm.HmmState import HmmState
 from DataStructure import CounterHashMap
 import math
+import abc
+from abc import abstractmethod
 
 
-class Hmm(object):
+class Hmm(abc):
 
+    @abstractmethod
     def calculatePi(self, observations: list):
         pass
 
+    @abstractmethod
     def calculateTransitionProbabilities(self, observations: list):
         pass
 
+    @abstractmethod
     def viterbi(self, s: list) -> list:
         pass
 
-    def __init__(self, states: dict, observations: list, emittedSymbols: list):
+    def __init__(self, states: set, observations: list, emittedSymbols: list):
         i = 0
         self.stateCount = len(states)
         self.states = []
@@ -25,7 +30,7 @@ class Hmm(object):
         self.calculatePi(observations)
         for state in states:
             emissionProbabilities = self.calculateEmissionProbabilities(state, observations, emittedSymbols)
-            self.states.append(HmmState.HmmState(state, emissionProbabilities))
+            self.states.append(HmmState(state, emissionProbabilities))
         self.calculateTransitionProbabilities(observations)
 
     def calculateEmissionProbabilities(self, state: object,  observations: list, emittedSymbols: list) -> dict:

@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='Hmm',
+    name='NlpToolkit-Hmm',
     version='1.0.0',
     packages=['Hmm'],
     url='https://github.com/olcaytaner/Hmm-Py',
