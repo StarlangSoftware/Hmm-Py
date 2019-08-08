@@ -1,11 +1,10 @@
 from Hmm.HmmState import HmmState
 from DataStructure.CounterHashMap import CounterHashMap
 import math
-import abc
 from abc import abstractmethod
 
 
-class Hmm(abc):
+class Hmm(object):
 
     @abstractmethod
     def calculatePi(self, observations: list):
