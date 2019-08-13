@@ -8,5 +8,6 @@ setup(
     license='',
     author='olcaytaner',
     author_email='olcaytaner@isikun.edu.tr',
-    description='Hidden Markov Model Library'
+    description='Hidden Markov Model Library',
+    install_requires=['NlpToolkit-Math', 'NlpToolkit-DataStructure']
 )
