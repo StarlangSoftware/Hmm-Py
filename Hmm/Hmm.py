@@ -1,10 +1,16 @@
 from Hmm.HmmState import HmmState
 from DataStructure.CounterHashMap import CounterHashMap
+from Math.Matrix import Matrix
 import math
 from abc import abstractmethod
 
 
 class Hmm(object):
+
+    transitionProbabilities: Matrix
+    stateIndexes: dict
+    states: list
+    stateCount: int
 
     @abstractmethod
     def calculatePi(self, observations: list):
@@ -48,9 +54,9 @@ class Hmm(object):
         self.calculateTransitionProbabilities(observations)
 
     """
-    calculateEmissionProbabilities calculates the emission probabilities for a specific state. The method takes the state,
-    an array of observations (which also consists of an array of states) and an array of instances (which also consists
-    of an array of emitted symbols).
+    calculateEmissionProbabilities calculates the emission probabilities for a specific state. The method takes the 
+    state, an array of observations (which also consists of an array of states) and an array of instances (which also 
+    consists of an array of emitted symbols).
 
     PARAMETERS
     ----------

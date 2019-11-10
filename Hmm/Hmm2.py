@@ -5,6 +5,8 @@ from Math.Matrix import Matrix
 
 class Hmm2(Hmm):
 
+    __pi: Matrix
+
     """
     A constructor of Hmm2 class which takes a Set of states, an array of observations (which also
     consists of an array of states) and an array of instances (which also consists of an array of emitted symbols).
@@ -34,12 +36,12 @@ class Hmm2(Hmm):
         A set of observations used to calculate the prior probabilities.
     """
     def calculatePi(self, observations: list):
-        self.pi = Matrix(self.stateCount, self.stateCount)
+        self.__pi = Matrix(self.stateCount, self.stateCount)
         for observation in observations:
             first = self.stateIndexes[observation[0]]
             second = self.stateIndexes[observation[1]]
-            self.pi.increment(first, second)
-        self.pi.columnWiseNormalize()
+            self.__pi.increment(first, second)
+        self.__pi.columnWiseNormalize()
 
     """
     calculateTransitionProbabilities calculates the transition probabilities matrix from each state to another state.
@@ -105,7 +107,7 @@ class Hmm2(Hmm):
         for i in range(self.stateCount):
             for j in range(self.stateCount):
                 observationLikelihood = self.states[i].getEmitProb(emission1) * self.states[j].getEmitProb(emission2)
-                gamma.setValue(1, i * self.stateCount + j, self.safeLog(self.pi.getValue(i, j)) + self.safeLog(observationLikelihood))
+                gamma.setValue(1, i * self.stateCount + j, self.safeLog(self.__pi.getValue(i, j)) + self.safeLog(observationLikelihood))
         for t in range (1, sequenceLength):
             emission = s[t]
             for j in range(self.stateCount * self.stateCount):
