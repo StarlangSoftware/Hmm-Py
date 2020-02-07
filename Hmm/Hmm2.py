@@ -119,9 +119,9 @@ class Hmm2(Hmm):
                 gamma.setValue(t, j, current.getValue(maxIndex) + self.safeLog(observationLikelihood))
                 phi.setValue(t, j, maxIndex * self.stateCount + j // self.stateCount)
         qs.setValue(sequenceLength - 1, gamma.getRowVector(sequenceLength - 1).maxIndex())
-        result.insert(0, self.states[qs.getValue(sequenceLength - 1) % self.stateCount].getState())
+        result.insert(0, self.states[int(qs.getValue(sequenceLength - 1)) % self.stateCount].getState())
         for i in range(sequenceLength - 2, 0, -1):
-            qs.setValue(i, phi.getValue(i + 1, qs.getValue(i + 1)))
-            result.insert(0, self.states[qs.getValue(i) % self.stateCount].getState())
-        result.insert(0, self.states[qs.getValue(1) // self.stateCount].getState())
+            qs.setValue(i, phi.getValue(i + 1, int(qs.getValue(i + 1))))
+            result.insert(0, self.states[int(qs.getValue(i)) % self.stateCount].getState())
+        result.insert(0, self.states[int(qs.getValue(1)) // self.stateCount].getState())
         return result
