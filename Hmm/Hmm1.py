@@ -7,34 +7,34 @@ class Hmm1(Hmm):
 
     __pi: Vector
 
-    """
-    A constructor of Hmm1 class which takes a Set of states, an array of observations (which also
-    consists of an array of states) and an array of instances (which also consists of an array of emitted symbols).
-    The constructor calls its super method to calculate the emission probabilities for those states.
-
-    PARAMETERS
-    ----------
-    states : set
-        A Set of states, consisting of all possible states for this problem.
-    observations : list
-        An array of instances, where each instance consists of an array of states.
-    emittedSymbols : list
-        An array of instances, where each instance consists of an array of symbols.
-    """
     def __init__(self, states: set, observations: list, emittedSymbols: list):
+        """
+        A constructor of Hmm1 class which takes a Set of states, an array of observations (which also
+        consists of an array of states) and an array of instances (which also consists of an array of emitted symbols).
+        The constructor calls its super method to calculate the emission probabilities for those states.
+
+        PARAMETERS
+        ----------
+        states : set
+            A Set of states, consisting of all possible states for this problem.
+        observations : list
+            An array of instances, where each instance consists of an array of states.
+        emittedSymbols : list
+            An array of instances, where each instance consists of an array of symbols.
+        """
         super().__init__(states, observations, emittedSymbols)
 
-    """
-    calculatePi calculates the prior probability vector (initial probabilities for each state) from a set of
-    observations. For each observation, the function extracts the first state in that observation. Normalizing the
-    counts of the states returns us the prior probabilities for each state.
-
-    PARAMETERS
-    ----------
-    observations : list
-        A set of observations used to calculate the prior probabilities.
-    """
     def calculatePi(self, observations: list):
+        """
+        calculatePi calculates the prior probability vector (initial probabilities for each state) from a set of
+        observations. For each observation, the function extracts the first state in that observation. Normalizing the
+        counts of the states returns us the prior probabilities for each state.
+
+        PARAMETERS
+        ----------
+        observations : list
+            A set of observations used to calculate the prior probabilities.
+        """
         self.__pi = Vector()
         self.__pi.initAllSame(self.stateCount, 0.0)
         for observation in observations:
@@ -42,17 +42,17 @@ class Hmm1(Hmm):
             self.__pi.addValue(index, 1.0)
         self.__pi.l1Normalize()
 
-    """
-    calculateTransitionProbabilities calculates the transition probabilities matrix from each state to another state.
-    For each observation and for each transition in each observation, the function gets the states. Normalizing the
-    counts of the pair of states returns us the transition probabilities.
-    
-    PARAMETERS
-    ----------
-    observations : list
-        A set of observations used to calculate the transition probabilities.
-    """
     def calculateTransitionProbabilities(self, observations: list):
+        """
+        calculateTransitionProbabilities calculates the transition probabilities matrix from each state to another
+        state. For each observation and for each transition in each observation, the function gets the states.
+        Normalizing the counts of the pair of states returns us the transition probabilities.
+
+        PARAMETERS
+        ----------
+        observations : list
+            A set of observations used to calculate the transition probabilities.
+        """
         self.transitionProbabilities = Matrix(self.stateCount, self.stateCount)
         for current in observations:
             for j in range(len(current) - 1):
@@ -61,39 +61,39 @@ class Hmm1(Hmm):
                 self.transitionProbabilities.increment(fromIndex, toIndex)
         self.transitionProbabilities.columnWiseNormalize()
 
-    """
-    logOfColumn calculates the logarithm of each value in a specific column in the transition probability matrix.
+    def __logOfColumn(self, column: int) -> Vector:
+        """
+        logOfColumn calculates the logarithm of each value in a specific column in the transition probability matrix.
 
-    PARAMETERS
-    ----------
-    column : int 
-        Column index of the transition probability matrix.
+        PARAMETERS
+        ----------
+        column : int
+            Column index of the transition probability matrix.
 
-    RETURNS
-    -------
-    Vector
-        A vector consisting of the logarithm of each value in the column in the transition probability matrix.
-    """
-    def logOfColumn(self, column: int) -> Vector:
+        RETURNS
+        -------
+        Vector
+            A vector consisting of the logarithm of each value in the column in the transition probability matrix.
+        """
         result = Vector()
         for i in range(self.stateCount):
             result.add(self.safeLog(self.transitionProbabilities.getValue(i, column)))
         return result
 
-    """
-    viterbi calculates the most probable state sequence for a set of observed symbols.
-
-    PARAMETERS
-    ----------
-    s : list
-        A set of observed symbols.
-        
-    RETURNS
-    -------
-    list
-        The most probable state sequence as an {@link ArrayList}.
-    """
     def viterbi(self, s: list) -> list:
+        """
+        viterbi calculates the most probable state sequence for a set of observed symbols.
+
+        PARAMETERS
+        ----------
+        s : list
+            A set of observed symbols.
+
+        RETURNS
+        -------
+        list
+            The most probable state sequence as an {@link ArrayList}.
+        """
         result = []
         sequenceLength = len(s)
         gamma = Matrix(sequenceLength, self.stateCount)
@@ -107,7 +107,7 @@ class Hmm1(Hmm):
         for t in range(1, sequenceLength):
             emission = s[t]
             for j in range(self.stateCount):
-                tempArray = self.logOfColumn(j)
+                tempArray = self.__logOfColumn(j)
                 tempArray.addVector(gamma.getRowVector(t - 1))
                 maxIndex = tempArray.maxIndex()
                 observationLikelihood = self.states[j].getEmitProb(emission)
