@@ -50,3 +50,18 @@ Steps for opening the cloned project:
 **From IDE**
 
 After being done with the downloading, select **Build Project** option from **Build** menu. After compilation process, user can run Hmm.
+
+Detailed Description
+============
++ [Hmm](#hmm)
+
+## Hmm
+
+Hmm modelini üretmek için
+
+	Hmm(Set<State> states, ArrayList<State>[] observations, ArrayList<Symbol>[] emittedSymbols)
+
+
+Viterbi algoritması ile en olası State listesini elde etmek için
+
+	ArrayList<State> viterbi(ArrayList<Symbol> s)
