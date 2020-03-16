@@ -59,9 +59,9 @@ Detailed Description
 
 Hmm modelini üretmek için
 
-	Hmm(Set<State> states, ArrayList<State>[] observations, ArrayList<Symbol>[] emittedSymbols)
+	Hmm(self, states: set, observations: list, emittedSymbols: list)
 
 
 Viterbi algoritması ile en olası State listesini elde etmek için
 
-	ArrayList<State> viterbi(ArrayList<Symbol> s)
+	viterbi(self, s: list) -> list
