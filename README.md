@@ -1,10 +1,8 @@
 # Hmm
 
-
 For Developers
 ============
-You can also see either [Java](https://github.com/olcaytaner/Hmm) 
-or [C++](https://github.com/olcaytaner/Hmm-CPP) repository.
+You can also see [Java](https://github.com/starlangsoftware/Hmm), [C++](https://github.com/starlangsoftware/Hmm-CPP),  or [C#](https://github.com/starlangsoftware/Hmm-CS) repository.
 
 ## Requirements
 
