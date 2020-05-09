@@ -98,8 +98,7 @@ class Hmm1(Hmm):
         sequenceLength = len(s)
         gamma = Matrix(sequenceLength, self.stateCount)
         phi = Matrix(sequenceLength, self.stateCount)
-        qs = Vector()
-        qs.initAllSame(sequenceLength, 0)
+        qs = Vector(sequenceLength, 0)
         emission = s[0]
         for i in range(self.stateCount):
             observationLikelihood = self.states[i].getEmitProb(emission)

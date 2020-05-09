@@ -102,8 +102,7 @@ class Hmm2(Hmm):
         sequenceLength = len(s)
         gamma = Matrix(sequenceLength, self.stateCount * self.stateCount)
         phi = Matrix(sequenceLength, self.stateCount * self.stateCount)
-        qs = Vector()
-        qs.initAllSame(sequenceLength, 0)
+        qs = Vector(sequenceLength, 0)
         emission1 = s[0]
         emission2 = s[1]
         for i in range(self.stateCount):
@@ -111,7 +110,7 @@ class Hmm2(Hmm):
                 observationLikelihood = self.states[i].getEmitProb(emission1) * self.states[j].getEmitProb(emission2)
                 gamma.setValue(1, i * self.stateCount + j, self.safeLog(self.__pi.getValue(i, j)) +
                                self.safeLog(observationLikelihood))
-        for t in range(1, sequenceLength):
+        for t in range(2, sequenceLength):
             emission = s[t]
             for j in range(self.stateCount * self.stateCount):
                 current = self.__logOfColumn(j)
