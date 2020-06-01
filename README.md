@@ -1,5 +1,3 @@
-# Hmm
-
 For Developers
 ============
 You can also see [Java](https://github.com/starlangsoftware/Hmm), [C++](https://github.com/starlangsoftware/Hmm-CPP),  or [C#](https://github.com/starlangsoftware/Hmm-CS) repository.
@@ -41,18 +39,3 @@ Steps for opening the cloned project:
 * Choose `Hmm-PY` file
 * Select open as project option
 * Couple of seconds, dependencies will be downloaded. 
-
-Detailed Description
-============
-+ [Hmm](#hmm)
-
-## Hmm
-
-Hmm modelini üretmek için
-
-	Hmm(self, states: set, observations: list, emittedSymbols: list)
-
-
-Viterbi algoritması ile en olası State listesini elde etmek için
-
-	viterbi(self, s: list) -> list
