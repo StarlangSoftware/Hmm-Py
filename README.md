@@ -1,6 +1,6 @@
 For Developers
 ============
-You can also see [Java](https://github.com/starlangsoftware/Hmm), [C++](https://github.com/starlangsoftware/Hmm-CPP),  or [C#](https://github.com/starlangsoftware/Hmm-CS) repository.
+You can also see [Java](https://github.com/starlangsoftware/Hmm), [C++](https://github.com/starlangsoftware/Hmm-CPP), [Swift](https://github.com/starlangsoftware/Hmm-Swift),  or [C#](https://github.com/starlangsoftware/Hmm-CS) repository.
 
 ## Requirements
 
