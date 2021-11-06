@@ -1,7 +1,7 @@
 For Developers
 ============
 
-You can also see [Cython](https://github.com/starlangsoftware/Hmm-Cy), [Java](https://github.com/starlangsoftware/Hmm), [C++](https://github.com/starlangsoftware/Hmm-CPP), [Swift](https://github.com/starlangsoftware/Hmm-Swift),  or [C#](https://github.com/starlangsoftware/Hmm-CS) repository.
+You can also see [Cython](https://github.com/starlangsoftware/Hmm-Cy), [Java](https://github.com/starlangsoftware/Hmm), [C++](https://github.com/starlangsoftware/Hmm-CPP), [Swift](https://github.com/starlangsoftware/Hmm-Swift), [Js](https://github.com/starlangsoftware/Hmm-Js), or [C#](https://github.com/starlangsoftware/Hmm-CS) repository.
 
 ## Requirements
 
