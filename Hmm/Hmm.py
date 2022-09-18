@@ -7,10 +7,10 @@ from abc import abstractmethod
 
 class Hmm(object):
 
-    transitionProbabilities: Matrix
-    stateIndexes: dict
+    transition_probabilities: Matrix
+    state_indexes: dict
     states: list
-    stateCount: int
+    state_count: int
 
     @abstractmethod
     def calculatePi(self, observations: list):
@@ -24,7 +24,10 @@ class Hmm(object):
     def viterbi(self, s: list) -> list:
         pass
 
-    def __init__(self, states: set, observations: list, emittedSymbols: list):
+    def __init__(self,
+                 states: set,
+                 observations: list,
+                 emittedSymbols: list):
         """
         A constructor of Hmm class which takes a Set of states, an array of observations (which also
         consists of an array of states) and an array of instances (which also consists of an array of emitted symbols).
@@ -41,19 +44,22 @@ class Hmm(object):
             An array of instances, where each instance consists of an array of symbols.
         """
         i = 0
-        self.stateCount = len(states)
+        self.state_count = len(states)
         self.states = []
-        self.stateIndexes = {}
+        self.state_indexes = {}
         for state in states:
-            self.stateIndexes[state] = i
+            self.state_indexes[state] = i
             i = i + 1
         self.calculatePi(observations)
         for state in states:
-            emissionProbabilities = self.calculateEmissionProbabilities(state, observations, emittedSymbols)
-            self.states.append(HmmState(state, emissionProbabilities))
+            emission_probabilities = self.calculateEmissionProbabilities(state, observations, emittedSymbols)
+            self.states.append(HmmState(state, emission_probabilities))
         self.calculateTransitionProbabilities(observations)
 
-    def calculateEmissionProbabilities(self, state: object,  observations: list, emittedSymbols: list) -> dict:
+    def calculateEmissionProbabilities(self,
+                                       state: object,
+                                       observations: list,
+                                       emittedSymbols: list) -> dict:
         """
         calculateEmissionProbabilities calculates the emission probabilities for a specific state. The method takes the
         state, an array of observations (which also consists of an array of states) and an array of instances (which also
@@ -61,7 +67,7 @@ class Hmm(object):
 
         PARAMETERS
         ----------
-        states : set
+        state : set
             A Set of states, consisting of all possible states for this problem.
         observations : list
             An array of instances, where each instance consists of an array of states.
@@ -105,3 +111,6 @@ class Hmm(object):
             return -1000
         else:
             return math.log(x)
+
+    def __repr__(self):
+        return f"{self.transition_probabilities} {self.states}"
